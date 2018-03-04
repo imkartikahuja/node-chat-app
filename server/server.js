@@ -14,14 +14,20 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {                 //connection event listener lets u listen for new connection
   console.log('New user connected');                                                //socket represents to individual sockets as suppose to all the users connected
 
-  socket.emit('newMessage', {     //passing object in second arg as data
-    from: 'test',
-    text: 'Hey. What\'s up!',
-    createdAt: 65454545
-  });
+  // socket.emit('newMessage', {     //passing object in second arg as data
+  //   from: 'test',
+  //   text: 'Hey. What\'s up!',
+  //   createdAt: 65454545
+  // });
 
   socket.on('createMessage',(message) => {
     console.log('createMessage', message);
+    //emits event to every connection
+    io.emit('newMessage', {
+      from: 'message.from',
+      text: 'message.text',
+      createdAt: new Date().getTime()
+    });
   });
 
   socket.on('disconnect', () => {

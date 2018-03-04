@@ -3,10 +3,10 @@ var socket = io();    //iniate a request from client to server to open a web soc
 socket.on('connect', function () {
   console.log('Connected to server');
 
-  socket.emit('createMessage', {
-    from: 'Kartik',
-    text: 'Hey. This is Kartik.'
-  });
+//   socket.emit('createMessage', {
+//     from: 'Kartik',
+//     text: 'Hey. This is Kartik.'
+//   });
 });
 
 socket.on('disconnect', function () {

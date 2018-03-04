@@ -20,14 +20,32 @@ io.on('connection', (socket) => {                 //connection event listener le
   //   createdAt: 65454545
   // });
 
+
+  socket.emit('newMessage', {
+    from: 'Admin',
+    text: 'Welcome to the chat app',
+    createdAt: new Date().getTime()
+  });
+
+  socket.broadcast.emit('newMessage', {
+      from: 'Admin',
+      text: 'New user joined',
+      createdAt: new Date().getTime()
+  });
+
   socket.on('createMessage',(message) => {
     console.log('createMessage', message);
     //emits event to every connection
     io.emit('newMessage', {
-      from: 'message.from',
-      text: 'message.text',
+      from: message.from,
+      text: message.text,
       createdAt: new Date().getTime()
     });
+    // socket.broadcast.emit('newMessage', {
+    //   from: message.from,
+    //   text: message.text,
+    //   createdAt: new Date().getTime()
+    // });
   });
 
   socket.on('disconnect', () => {

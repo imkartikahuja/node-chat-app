@@ -9,17 +9,6 @@
 
     <!-- now we are loading lib and on the browser we have access to all methods avaiable  -->
     <script type="text/javascript" src="/socket.io/socket.io.js"> </script>
-    <script>
-      var socket = io();    //iniate a request from client to server to open a web socket and keep that connection open
-
-      socket.on('connect', () => {
-        console.log('Connected to server');
-      });
-
-      socket.on('disconnect', () => {
-        console.log('Disconnected from server');
-      });
-
-    </script>
+    <script src="/js/index.js"> </script>
   </body>
 </html>

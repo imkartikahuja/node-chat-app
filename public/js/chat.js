@@ -18,7 +18,17 @@ function scrollToBottom() {
 }
 
 socket.on('connect', function () {
-  console.log('Connected to server');
+  var params = jQuery.deparam(window.location.search);
+
+  //when server listens to join event it will go through the process of setting up the room
+  socket.emit('join', params, function (err) {
+    if(err){
+      alert(err);
+      window.location.href = '/';
+    } else {
+      console.log('No error');
+    }
+  });
 
 //   socket.emit('createMessage', {
 //     from: 'Kartik',
@@ -28,6 +38,16 @@ socket.on('connect', function () {
 
 socket.on('disconnect', function () {
   console.log('Disconnected from server');
+});
+
+socket.on('updateUserList', function (users) {
+  var ol = jQuery('<ol></ol>');
+
+  users.forEach(function (user) {
+    ol.append(jQuery('<li></li>').text(user));
+  });
+
+  jQuery('#users').html(ol);      //bcoz we do not want to append the list we want to wipe and put new list
 });
 
 socket.on('newMessage', function (message) {
